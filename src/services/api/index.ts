@@ -2,6 +2,8 @@ import axios from 'axios'
 
 import * as types from './types'
 
+const SITE = 'stackoverflow'
+
 const apiInstance = axios.create({
   baseURL: 'https://api.stackexchange.com/2.2',
   responseType: 'json',
@@ -12,21 +14,22 @@ const apiInstance = axios.create({
   validateStatus: () => true
 })
 
-export const getTag = (payload: types.GetTagsRequest) =>
+export const getTags = (payload: types.GetTagsRequest) =>
   apiInstance.get('/tags', {
     params: {
-      sort: "popular",
-      site: "stackoverflow"
+      ...payload,
+      order: 'desc',
+      sort: 'popular',
+      site: SITE
     }
   })
 
-export const getTrendingTag = () =>
-  apiInstance.get('/tags', {
+export const getQuestions = (payload: types.GetQuestionsRequest) =>
+  apiInstance.get('/questions', {
     params: {
-      sort: "popular",
-      site: "stackoverflow"
+      ...payload,
+      order: 'desc',
+      sort: 'activity',
+      site: SITE
     }
   })
-
-export const fetchQuestions = (payload: types.FetchQuestionsRequest) =>
-  apiInstance.get('/questions')
