@@ -1,0 +1,3 @@
+{
+  "groupings": [["@modules/", "@redux/*", "@services", "@theme"], "src/"]
+}
