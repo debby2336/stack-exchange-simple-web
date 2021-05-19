@@ -1,18 +1,25 @@
 import { Action } from 'redux-actions'
-import { call, put } from 'redux-saga/effects'
+import { call, put, select } from 'redux-saga/effects'
 
 import { getQuestions } from '@services/api'
 
-import { FetchQuestionListPayload, questionsActionCreators } from '..'
+import { FetchQuestionListPayload, getTag, questionsActionCreators } from '..'
 
 export function* fetchQuestionListWorker(
   action: Action<FetchQuestionListPayload>
 ) {
   try {
-    const response = yield call(getQuestions, action.payload)
+    const tag = yield select(getTag)
+    const response = yield call(getQuestions, {
+      ...action.payload,
+      tagged: tag
+    })
 
     const questionList = response.data.items
-    yield put(questionsActionCreators.fetchQuestionListSuccess(questionList))
+    const hasMore = response.data.has_more
+    yield put(
+      questionsActionCreators.fetchQuestionListSuccess(hasMore, questionList)
+    )
   } catch (err) {
     let payload
     if (err.status >= 500 && err.status <= 599) {

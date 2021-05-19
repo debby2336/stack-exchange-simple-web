@@ -4,8 +4,10 @@ import { QuestionItemType } from 'src/types/questions'
 
 export interface QuestionsState {
   page: number
+  tag: string
   questionList: any
   isFetching: boolean
+  hasMore: boolean
 }
 
 export enum QuestionsActionTypes {
@@ -18,7 +20,7 @@ export enum QuestionsActionTypes {
 export interface FetchQuestionListPayload {
   page: number
   pagesize: number
-  tagged: string
+  tag?: string
 }
 
 export interface FetchQuestionListFailPayload {
@@ -26,6 +28,7 @@ export interface FetchQuestionListFailPayload {
 }
 
 export interface FetchQuestionListSuccessPayload {
+  hasMore: boolean
   items: QuestionItemType[]
 }
 

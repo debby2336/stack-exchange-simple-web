@@ -12,3 +12,10 @@ export const getQuestionPageCount = createSelector(
   questionsSelector,
   R.path(['page'])
 )
+
+export const getHasMoreQuestion = createSelector(
+  questionsSelector,
+  R.path(['hasMore'])
+)
+
+export const getTag = createSelector(questionsSelector, R.path(['tag']))

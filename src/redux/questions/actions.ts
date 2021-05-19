@@ -13,19 +13,20 @@ export const questionsActionCreators = createActions<QuestionsPayloads>(
     [QuestionsActionTypes.FETCH_QUESTION_LIST]: (
       page: number,
       pagesize: number,
-      tagged: string
+      tag: string
     ) => ({
       page,
       pagesize,
-      tagged
+      tag
     }),
     // TODO
     [QuestionsActionTypes.FETCH_QUESTION_LIST_FAIL]: (error: any) => ({
       error
     }),
     [QuestionsActionTypes.FETCH_QUESTION_LIST_SUCCESS]: (
+      hasMore: boolean,
       items: QuestionItemType[]
-    ) => ({ items }),
+    ) => ({ hasMore, items }),
     [QuestionsActionTypes.CLEAR_QUESTION_LIST]: () => undefined
   },
   storeOptions

@@ -1,9 +1,16 @@
 import Box from '@material-ui/core/Box'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
-import { getQuestionList } from '@redux/questions'
 import * as R from 'ramda'
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { useDispatch, useSelector } from 'react-redux'
+
+import {
+  getHasMoreQuestion,
+  getQuestionList,
+  getQuestionPageCount,
+  questionsActionCreators
+} from '@redux/questions'
 
 import { QuestionItemType } from 'src/types/questions'
 
@@ -21,12 +28,32 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const QuestionList = () => {
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const hasMore = useSelector(getHasMoreQuestion) as boolean
+  const pageCount = useSelector(getQuestionPageCount) as number
   const questionList = useSelector(getQuestionList) as QuestionItemType[]
-  return (
-    <Box className={classes.root}>
+  const loadMore = () => {
+    dispatch(questionsActionCreators.fetchQuestionList(pageCount + 1, 20))
+  }
+  return questionList.length > 0 ? (
+    <InfiniteScroll
+      className={classes.root}
+      dataLength={questionList.length}
+      next={loadMore}
+      hasMore={hasMore}
+      loader={
+        <Box display="flex" justifyContent="center">
+          <CircularProgress />
+        </Box>
+      }
+    >
       {R.addIndex(R.map)((question: QuestionItemType, index) => (
         <QuestionItem key={index} question={question} />
       ))(questionList)}
+    </InfiniteScroll>
+  ) : (
+    <Box display="flex" justifyContent="center">
+      <CircularProgress />
     </Box>
   )
 }
