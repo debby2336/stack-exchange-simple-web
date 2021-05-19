@@ -1,15 +1,16 @@
-import { QuestionItemType } from 'src/types/questions'
-import { TagItem } from 'src/types/tags'
-
 export interface GetTagsRequest {
   page: number
   pagesize: number
   order: 'asc' | 'desc'
-  sort: 'popular'
+  sort: string
+  site: string
 }
 
 export interface GetQuestionsRequest {
   page: number
   pagesize: number
+  order: 'asc' | 'desc'
+  sort: string
+  site: string
   tagged: string
 }

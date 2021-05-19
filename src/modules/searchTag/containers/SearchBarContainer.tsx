@@ -39,7 +39,7 @@ const SearchBarContainer = () => {
   const [inputValue, setInputValue] = useState('')
 
   const debounceSearch = debounce(1000, false, (value) => {
-    dispatch(tagsActionCreators.fetchTagList(1, 10, value))
+    dispatch(tagsActionCreators.fetchTagList(1, value))
     document.documentElement.scrollTo({
       top: 0,
       behavior: 'smooth'

@@ -19,7 +19,6 @@ export enum QuestionsActionTypes {
 
 export interface FetchQuestionListPayload {
   page: number
-  pagesize: number
   tag?: string
 }
 

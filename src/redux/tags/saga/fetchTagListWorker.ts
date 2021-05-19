@@ -7,14 +7,16 @@ import { getTags } from '@services/api'
 
 import { FetchTagListPayload, tagsActionCreators } from '..'
 
+const pagesize = 10
+
 export function* fetchTagListWorker(action: Action<FetchTagListPayload>) {
   try {
-    const response = yield call(getTags, action.payload)
+    const response = yield call(getTags, { ...action.payload, pagesize })
     const tagList = response.data.items
     let actions = [put(tagsActionCreators.fetchTagListSuccess(tagList))]
     if (tagList.length > 0) {
       actions = R.append(
-        put(questionsActionCreators.fetchQuestionList(1, 20, tagList[0].name)),
+        put(questionsActionCreators.fetchQuestionList(1, tagList[0].name)),
         actions
       )
     } else {

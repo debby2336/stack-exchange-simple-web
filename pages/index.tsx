@@ -31,7 +31,7 @@ function ElevationScroll(props: Props) {
 
 const Home = () => {
   const dispatch = useDispatch()
-  dispatch(tagsActionCreators.fetchTagList(1, 10))
+  dispatch(tagsActionCreators.fetchTagList(1))
   return (
     <>
       <AppBar position="sticky">
@@ -55,7 +55,7 @@ const Home = () => {
 Home.getInitialProps = (context) => {
   const { store } = context
   // TODO: make it a constant
-  store.dispatch(tagsActionCreators.fetchTagList(1, 10))
+  store.dispatch(tagsActionCreators.fetchTagList(1))
   return {}
 }
 

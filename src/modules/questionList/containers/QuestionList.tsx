@@ -33,7 +33,7 @@ const QuestionList = () => {
   const pageCount = useSelector(getQuestionPageCount) as number
   const questionList = useSelector(getQuestionList) as QuestionItemType[]
   const loadMore = () => {
-    dispatch(questionsActionCreators.fetchQuestionList(pageCount + 1, 20))
+    dispatch(questionsActionCreators.fetchQuestionList(pageCount + 1))
   }
   return questionList.length > 0 ? (
     <InfiniteScroll

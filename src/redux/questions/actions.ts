@@ -12,14 +12,11 @@ export const questionsActionCreators = createActions<QuestionsPayloads>(
   {
     [QuestionsActionTypes.FETCH_QUESTION_LIST]: (
       page: number,
-      pagesize: number,
       tag: string
     ) => ({
       page,
-      pagesize,
       tag
     }),
-    // TODO
     [QuestionsActionTypes.FETCH_QUESTION_LIST_FAIL]: (error: any) => ({
       error
     }),

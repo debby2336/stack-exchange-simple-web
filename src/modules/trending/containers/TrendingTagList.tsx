@@ -32,7 +32,7 @@ const TrendingTagList = () => {
   const handleChipClick = (tagName: string, selectedIndex: number) => {
     if (selectedIndex !== selectedTagIndex) {
       setSelectedTagIndex(selectedIndex)
-      dispatch(questionsActionCreators.fetchQuestionList(1, 20, tagName))
+      dispatch(questionsActionCreators.fetchQuestionList(1, tagName))
     }
   }
 

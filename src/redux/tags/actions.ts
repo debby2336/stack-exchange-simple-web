@@ -10,13 +10,8 @@ export const storeOptions = {
 
 export const tagsActionCreators = createActions<TagsPayloads>(
   {
-    [TagsActionTypes.FETCH_TAG_LIST]: (
-      page: number,
-      pagesize: number,
-      inname?: string
-    ) => ({
+    [TagsActionTypes.FETCH_TAG_LIST]: (page: number, inname?: string) => ({
       page,
-      pagesize,
       ...(inname && { inname })
     }),
     [TagsActionTypes.FETCH_TAG_LIST_SUCCESS]: (items: TagItemType[]) => ({

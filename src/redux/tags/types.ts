@@ -15,7 +15,6 @@ export enum TagsActionTypes {
 
 export interface FetchTagListPayload {
   page: number
-  pagesize: number
   inname?: string
 }
 

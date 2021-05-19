@@ -38,7 +38,6 @@ class WrappedApp extends App<AppInitialProps> {
             name="viewport"
             content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover"
           />
-          {/* TODO */}
           <meta name="description" content="Stack Exchange Simple Web" />
           <link rel="icon" href="/favicon.ico" />
         </Head>

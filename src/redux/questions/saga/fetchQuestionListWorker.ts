@@ -5,6 +5,8 @@ import { getQuestions } from '@services/api'
 
 import { FetchQuestionListPayload, getTag, questionsActionCreators } from '..'
 
+const pagesize = 20
+
 export function* fetchQuestionListWorker(
   action: Action<FetchQuestionListPayload>
 ) {
@@ -12,6 +14,7 @@ export function* fetchQuestionListWorker(
     const tag = yield select(getTag)
     const response = yield call(getQuestions, {
       ...action.payload,
+      pagesize,
       tagged: tag
     })
 
