@@ -1,5 +1,5 @@
 import { Action } from 'redux-actions'
-import { all, call, put } from 'redux-saga/effects'
+import { call, put } from 'redux-saga/effects'
 
 import { getTags } from '@services/api'
 
