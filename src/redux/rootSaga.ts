@@ -1,5 +1,7 @@
 import { all, fork } from 'redux-saga/effects'
 
+import { tagsSaga } from './tags/saga'
+
 const combineSagas = (sagas: any) =>
   function* rootSaga() {
     try {
@@ -9,5 +11,4 @@ const combineSagas = (sagas: any) =>
     }
   }
 
-export const rootSaga = combineSagas([
-])
+export const rootSaga = combineSagas([tagsSaga])

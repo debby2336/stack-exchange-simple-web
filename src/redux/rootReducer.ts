@@ -2,15 +2,18 @@ import { HYDRATE } from 'next-redux-wrapper'
 import { Reducer, combineReducers } from 'redux'
 
 import { QuestionsActions, QuestionsState, questionsReducer } from './questions'
+import { TagsActions, TagsState, tagsReducer } from './tags'
 
 export interface ApplicationState {
   questions: QuestionsState
+  tags: TagsState
 }
 
-export type ApplicationActions = QuestionsActions
+export type ApplicationActions = QuestionsActions | TagsActions
 
 const combindedReducers = combineReducers<ApplicationState>({
-  questions: questionsReducer
+  questions: questionsReducer,
+  tags: tagsReducer
 })
 
 export const rootReducer: Reducer<ApplicationState, ApplicationActions> = (
