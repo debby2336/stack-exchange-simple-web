@@ -1,5 +1,6 @@
 import { all, fork } from 'redux-saga/effects'
 
+import { questionsSaga } from './questions/saga'
 import { tagsSaga } from './tags/saga'
 
 const combineSagas = (sagas: any) =>
@@ -11,4 +12,4 @@ const combineSagas = (sagas: any) =>
     }
   }
 
-export const rootSaga = combineSagas([tagsSaga])
+export const rootSaga = combineSagas([questionsSaga, tagsSaga])

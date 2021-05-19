@@ -10,6 +10,7 @@ export interface OwnerType {
 export interface QuestionItemType {
   tags: String[]
   owner: OwnerType
+  answer_count: number
   is_answered: boolean
   view_count: number
   score: number

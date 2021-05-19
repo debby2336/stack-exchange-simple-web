@@ -5,6 +5,10 @@ export const questionsSelector = (state) => state.questions
 
 export const getQuestionList = createSelector(
   questionsSelector,
-  (_: any, props) => props,
   R.path(['questionList'])
+)
+
+export const getQuestionPageCount = createSelector(
+  questionsSelector,
+  R.path(['page'])
 )

@@ -2,41 +2,49 @@ import { Reducer, handleActions } from 'redux-actions'
 
 import { storeOptions } from './actions'
 import {
-  GetQuestionListPayload,
-  GetQuestionListFailPayload,
-  GetQuestionListSuccessPayload,
+  FetchQuestionListFailPayload,
+  FetchQuestionListPayload,
+  FetchQuestionListSuccessPayload,
   QuestionsActionTypes,
   QuestionsPayloads,
-  QuestionsState,
+  QuestionsState
 } from './types'
 
 export const INITIAL_STATE: QuestionsState = {
+  page: 0,
   questionList: [],
   isFetching: false
 }
 
-export const fetchQuestions: Reducer<
+export const fetchQuestionList: Reducer<
   QuestionsState,
-  GetQuestionListPayload
-> = (state) => ({
-  ...state,
-  isFetching: true,
-})
-
-export const fetchQuestionsFail: Reducer<
-  QuestionsState,
-  GetQuestionListFailPayload
+  FetchQuestionListPayload
 > = (state, { payload }) => ({
   ...state,
-  isFetching: false,
+  page: payload.page,
+  isFetching: true
 })
 
-export const fetchQuestionsSuccess: Reducer<
+export const fetchQuestionListFail: Reducer<
   QuestionsState,
-  GetQuestionListSuccessPayload
+  FetchQuestionListFailPayload
 > = (state, { payload }) => ({
   ...state,
-  isFetching: false,
+  isFetching: false
+})
+
+export const fetchQuestionListSuccess: Reducer<
+  QuestionsState,
+  FetchQuestionListSuccessPayload
+> = (state, { payload }) => ({
+  ...state,
+  questionList: payload.items,
+  isFetching: false
+})
+
+export const clearQuestionList: Reducer<QuestionsState> = (state) => ({
+  ...state,
+  questionList: []
 })
 
 export const questionsReducer = handleActions<
@@ -44,9 +52,11 @@ export const questionsReducer = handleActions<
   QuestionsPayloads
 >(
   {
-    [QuestionsActionTypes.FETCH_QUESTION_LIST]: fetchQuestions,
-    [QuestionsActionTypes.FETCH_QUESTION_LIST_FAIL]: fetchQuestionsFail,
-    [QuestionsActionTypes.FETCH_QUESTION_LIST_SUCCESS]: fetchQuestionsSuccess
+    [QuestionsActionTypes.FETCH_QUESTION_LIST]: fetchQuestionList,
+    [QuestionsActionTypes.FETCH_QUESTION_LIST_FAIL]: fetchQuestionListFail,
+    [QuestionsActionTypes.FETCH_QUESTION_LIST_SUCCESS]:
+      fetchQuestionListSuccess,
+    [QuestionsActionTypes.CLEAR_QUESTION_LIST]: clearQuestionList
   },
   INITIAL_STATE,
   storeOptions
