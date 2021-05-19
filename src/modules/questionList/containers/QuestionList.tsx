@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import {
   getHasMoreQuestion,
+  getIsFetchingQuestionLsit,
   getQuestionList,
   getQuestionPageCount,
   questionsActionCreators
@@ -29,13 +30,14 @@ const useStyles = makeStyles((theme: Theme) =>
 const QuestionList = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const isFetching = useSelector(getIsFetchingQuestionLsit) as boolean
   const hasMore = useSelector(getHasMoreQuestion) as boolean
   const pageCount = useSelector(getQuestionPageCount) as number
   const questionList = useSelector(getQuestionList) as QuestionItemType[]
   const loadMore = () => {
     dispatch(questionsActionCreators.fetchQuestionList(pageCount + 1))
   }
-  return questionList.length > 0 ? (
+  return questionList.length > 0 && !isFetching ? (
     <InfiniteScroll
       className={classes.root}
       dataLength={questionList.length}
@@ -51,10 +53,12 @@ const QuestionList = () => {
         <QuestionItem key={index} question={question} />
       ))(questionList)}
     </InfiniteScroll>
-  ) : (
+  ) : isFetching ? (
     <Box display="flex" justifyContent="center">
       <CircularProgress />
     </Box>
+  ) : (
+    <Box />
   )
 }
 

@@ -19,3 +19,8 @@ export const getHasMoreQuestion = createSelector(
 )
 
 export const getTag = createSelector(questionsSelector, R.path(['tag']))
+
+export const getIsFetchingQuestionLsit = createSelector(
+  questionsSelector,
+  R.path(['isFetching'])
+)

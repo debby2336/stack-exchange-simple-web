@@ -1,11 +1,12 @@
 import Box from '@material-ui/core/Box'
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 import * as R from 'ramda'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { questionsActionCreators } from '@redux/questions'
-import { getTagList } from '@redux/tags'
+import { getIsFetchingTagList, getTagList } from '@redux/tags'
 
 import { TagItemType } from 'src/types/tags'
 
@@ -27,6 +28,7 @@ const TrendingTagList = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const tagList = useSelector(getTagList) as TagItemType[]
+  const isFetching = useSelector(getIsFetchingTagList) as boolean  
   const [selectedTagIndex, setSelectedTagIndex] = useState(0)
 
   const handleChipClick = (tagName: string, selectedIndex: number) => {
@@ -34,6 +36,16 @@ const TrendingTagList = () => {
       setSelectedTagIndex(selectedIndex)
       dispatch(questionsActionCreators.fetchQuestionList(1, tagName))
     }
+  }
+
+  if (!isFetching && (!tagList || tagList.length === 0)) {
+    return (
+      <Box>
+        <Typography align="center" variant="body1">
+          No Result Found!
+        </Typography>
+      </Box>
+    )
   }
 
   return (

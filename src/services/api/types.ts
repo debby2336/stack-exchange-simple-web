@@ -1,6 +1,7 @@
 export interface GetTagsRequest {
   page: number
   pagesize: number
+  inname: string
   order: 'asc' | 'desc'
   sort: string
   site: string
